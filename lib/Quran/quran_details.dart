@@ -81,7 +81,7 @@ class _QuranDetailsState extends State<QuranDetails> {
   Future loadData(String suraNumber) async {
     String content =
         await rootBundle.loadString("assets/Files/$suraNumber.txt");
-    quranList = content.split("/n");
+    quranList = content.split("\n");
     setState(() {});
   }
 }
