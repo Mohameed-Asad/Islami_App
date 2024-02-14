@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:islamii_app/Hadeth/hadeth_content.dart';
-import 'package:islamii_app/theme_manager.dart';
+import 'package:islamii_app/app_manager/theme_manager.dart';
+import 'package:provider/provider.dart';
+
+import '../app_manager/settings_provider.dart';
 
 class HadethScreen extends StatelessWidget {
   const HadethScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var pointer = Provider.of<SettingsProvider>(context);
     Size mediaquery = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -20,7 +24,11 @@ class HadethScreen extends StatelessWidget {
         ),
         Text(
           "الأحاديث",
-          style: ThemeDataManager.primaryStyle,
+          style: pointer.isDark()
+              ? ThemeDataManager.primaryStyle.copyWith(
+                  color: Colors.white,
+                )
+              : ThemeDataManager.primaryStyle,
         ),
         Divider(
           color: ThemeDataManager.primaryColor,
@@ -38,7 +46,10 @@ class HadethScreen extends StatelessWidget {
               },
               child: Text(
                 "الحديث رقم ${index + 1}",
-                style: ThemeDataManager.primaryStyle.copyWith(height: 2),
+                style: pointer.isDark()
+                    ? ThemeDataManager.primaryStyle
+                        .copyWith(color: Colors.white, height: 2)
+                    : ThemeDataManager.primaryStyle.copyWith(height: 2),
                 textAlign: TextAlign.center,
               ),
             ),

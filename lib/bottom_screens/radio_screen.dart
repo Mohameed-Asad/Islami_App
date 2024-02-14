@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:islamii_app/theme_manager.dart';
+import 'package:islamii_app/app_manager/theme_manager.dart';
+import 'package:provider/provider.dart';
+
+import '../app_manager/settings_provider.dart';
 
 class RadioScreen extends StatelessWidget {
   const RadioScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var pointer = Provider.of<SettingsProvider>(context);
     return Column(
       children: [
         Container(
@@ -19,7 +23,10 @@ class RadioScreen extends StatelessWidget {
           padding: const EdgeInsets.only(top: 40, bottom: 20),
           child: Text(
             "إذاعة القرآن الكريم",
-            style: ThemeDataManager.primaryStyle.copyWith(fontSize: 30),
+            style: pointer.isDark()
+                ? ThemeDataManager.primaryStyle
+                    .copyWith(color: Colors.white, fontSize: 30)
+                : ThemeDataManager.primaryStyle.copyWith(fontSize: 30),
           ),
         ),
         Row(
@@ -29,7 +36,9 @@ class RadioScreen extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.arrow_left,
-                color: ThemeDataManager.primaryColor,
+                color: pointer.isDark()
+                    ? ThemeDataManager.primaryDarkColor2
+                    : ThemeDataManager.primaryColor,
                 size: 80,
               ),
             ),
@@ -37,7 +46,9 @@ class RadioScreen extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.pause,
-                color: ThemeDataManager.primaryColor,
+                color: pointer.isDark()
+                    ? ThemeDataManager.primaryDarkColor2
+                    : ThemeDataManager.primaryColor,
                 size: 70,
               ),
             ),
@@ -45,7 +56,9 @@ class RadioScreen extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.play_arrow,
-                color: ThemeDataManager.primaryColor,
+                color: pointer.isDark()
+                    ? ThemeDataManager.primaryDarkColor2
+                    : ThemeDataManager.primaryColor,
                 size: 50,
               ),
             ),

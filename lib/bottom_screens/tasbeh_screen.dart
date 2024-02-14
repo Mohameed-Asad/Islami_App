@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:islamii_app/theme_manager.dart';
+import 'package:islamii_app/app_manager/theme_manager.dart';
+import 'package:provider/provider.dart';
+
+import '../app_manager/settings_provider.dart';
 
 class TasbehScreen extends StatefulWidget {
   const TasbehScreen({super.key});
@@ -17,11 +20,12 @@ class _TasbehScreenState extends State<TasbehScreen> {
     "الحمد لله",
     "لا اله الا الله",
     "استغفر الله",
-    "لا حول ولا قوة الا بالله"
+    "الله اكبر"
   ];
 
   @override
   Widget build(BuildContext context) {
+    var pointer = Provider.of<SettingsProvider>(context);
     Size mediaquery = MediaQuery.of(context).size;
     return Container(
       width: mediaquery.width,
@@ -29,7 +33,9 @@ class _TasbehScreenState extends State<TasbehScreen> {
         padding: const EdgeInsets.only(top: 15),
         child: Column(
           children: [
-            Image.asset("assets/Images/head_sebha_logo.png"),
+            Image.asset(pointer.isDark()
+                ? "assets/Images/head_sebha_dark.png"
+                : "assets/Images/head_sebha_logo.png"),
             GestureDetector(
               onTap: () {
                 counter++;
@@ -38,11 +44,16 @@ class _TasbehScreenState extends State<TasbehScreen> {
                   counter = 0;
                   value++;
                 }
+                if (value == 5) {
+                  value = 0;
+                }
                 setState(() {});
               },
               child: Transform.rotate(
                 angle: angel,
-                child: Image.asset("assets/Images/body_sebha_logo.png"),
+                child: Image.asset(pointer.isDark()
+                    ? "assets/Images/body_sebha_dark.png"
+                    : "assets/Images/body_sebha_logo.png"),
               ),
             ),
             SizedBox(
@@ -50,7 +61,9 @@ class _TasbehScreenState extends State<TasbehScreen> {
             ),
             Text(
               "عدد التسبيحات",
-              style: ThemeDataManager.primaryStyle,
+              style: pointer.isDark()
+                  ? ThemeDataManager.primaryStyle.copyWith(color: Colors.white)
+                  : ThemeDataManager.primaryStyle,
             ),
             SizedBox(
               height: 10,
@@ -60,10 +73,15 @@ class _TasbehScreenState extends State<TasbehScreen> {
               height: 70,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
-                  color: ThemeDataManager.primaryColor),
+                  color: pointer.isDark()
+                      ? ThemeDataManager.primaryDarkColor
+                      : ThemeDataManager.primaryColor),
               child: Text(
                 "$counter",
-                style: ThemeDataManager.primaryStyle,
+                style: pointer.isDark()
+                    ? ThemeDataManager.primaryStyle
+                        .copyWith(color: Colors.white)
+                    : ThemeDataManager.primaryStyle,
               ),
               alignment: Alignment.center,
             ),
@@ -76,13 +94,18 @@ class _TasbehScreenState extends State<TasbehScreen> {
               height: 60,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
-                  color: ThemeDataManager.primaryColor),
+                  color: pointer.isDark()
+                      ? ThemeDataManager.primaryDarkColor2
+                      : ThemeDataManager.primaryColor),
               child: Text(
                 "${tasbeh[value]}",
-                style: ThemeDataManager.primaryStyle.copyWith(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
+                style: pointer.isDark()
+                    ? ThemeDataManager.primaryStyle.copyWith(
+                        color: ThemeDataManager.primaryDarkColor, fontSize: 20)
+                    : ThemeDataManager.primaryStyle.copyWith(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
                 textAlign: TextAlign.center,
               ),
             ),

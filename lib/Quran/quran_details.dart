@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islamii_app/app_manager/theme_manager.dart';
 import 'package:islamii_app/quran/quran_screen.dart';
-import 'package:islamii_app/theme_manager.dart';
+import 'package:provider/provider.dart';
+
+import '../app_manager/settings_provider.dart';
 
 class QuranDetails extends StatefulWidget {
   static const String routeName = "Quran_details";
@@ -15,26 +19,36 @@ class QuranDetails extends StatefulWidget {
 class _QuranDetailsState extends State<QuranDetails> {
   @override
   Widget build(BuildContext context) {
+    var pointer = Provider.of<SettingsProvider>(context);
+    var language = AppLocalizations.of(context)!;
     var args = ModalRoute.of(context)?.settings.arguments as QuranContent;
 
     if (quranList.isEmpty) loadData(args.suraNumber);
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/Images/default_bg.png"),
+              image: AssetImage(
+                pointer.isDark()
+                    ? "assets/Images/dark_bg.png"
+                    : "assets/Images/default_bg.png",
+              ),
               fit: BoxFit.cover)),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("إسلامي"),
+          title: Text(
+            language.islami,
+          ),
         ),
         body: Padding(
           padding:
-              const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 80),
+          const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 80),
           child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.6),
+                color: pointer.isDark()
+                    ? ThemeDataManager.primaryDarkColor.withOpacity(0.6)
+                    : Colors.white.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
@@ -44,14 +58,22 @@ class _QuranDetailsState extends State<QuranDetails> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          "سورة ${args.suraName}",
-                          style: ThemeDataManager.primaryStyle,
+                        Icon(
+                          Icons.play_circle,
+                          color: pointer.isDark()
+                              ? ThemeDataManager.primaryDarkColor2
+                              : Colors.black,
                         ),
                         const SizedBox(
                           width: 10,
                         ),
-                        const Icon(Icons.play_circle)
+                        Text(
+                          "سورة ${args.suraName}",
+                          style: pointer.isDark()
+                              ? ThemeDataManager.primaryStyle.copyWith(
+                                  color: ThemeDataManager.primaryDarkColor2)
+                              : ThemeDataManager.primaryStyle,
+                        ),
                       ],
                     ),
                     const Divider(
@@ -62,7 +84,10 @@ class _QuranDetailsState extends State<QuranDetails> {
                       child: ListView.builder(
                         itemBuilder: (context, index) => Text(
                           quranList[index],
-                          style: ThemeDataManager.primaryStyle,
+                          style: pointer.isDark()
+                              ? ThemeDataManager.primaryStyle.copyWith(
+                                  color: ThemeDataManager.primaryDarkColor2)
+                              : ThemeDataManager.primaryStyle,
                           textAlign: TextAlign.center,
                         ),
                         itemCount: quranList.length,

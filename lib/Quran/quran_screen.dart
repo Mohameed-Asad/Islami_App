@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:islamii_app/app_manager/theme_manager.dart';
 import 'package:islamii_app/quran/quran_details.dart';
 import 'package:islamii_app/quran/quran_title.dart';
-import 'package:islamii_app/theme_manager.dart';
+import 'package:provider/provider.dart';
+
+import '../app_manager/settings_provider.dart';
 
 class QuranScreen extends StatelessWidget {
   List<String> suraName = [
@@ -125,6 +128,7 @@ class QuranScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var pointer = Provider.of<SettingsProvider>(context);
     return Column(children: [
       Image.asset(
         "assets/Images/qur2an_screen_logo.png",
@@ -138,8 +142,12 @@ class QuranScreen extends StatelessWidget {
         children: [
           Expanded(
               child: Text(
-            "عدد الآيات",
-            style: ThemeDataManager.primaryStyle,
+            "إسم السورة",
+            style: pointer.isDark()
+                ? ThemeDataManager.primaryStyle.copyWith(
+                    color: Colors.white,
+                  )
+                : ThemeDataManager.primaryStyle,
             textAlign: TextAlign.center,
           )),
           Container(
@@ -149,8 +157,12 @@ class QuranScreen extends StatelessWidget {
           ),
           Expanded(
               child: Text(
-            "إسم السورة",
-            style: ThemeDataManager.primaryStyle,
+            "عدد الآيات",
+            style: pointer.isDark()
+                ? ThemeDataManager.primaryStyle.copyWith(
+                    color: Colors.white,
+                  )
+                : ThemeDataManager.primaryStyle,
             textAlign: TextAlign.center,
           )),
         ],

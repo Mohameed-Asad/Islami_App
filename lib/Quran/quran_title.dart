@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:islamii_app/theme_manager.dart';
+import 'package:islamii_app/app_manager/theme_manager.dart';
+import 'package:provider/provider.dart';
+
+import '../app_manager/settings_provider.dart';
 
 class QuranData extends StatelessWidget {
   final String suraName;
@@ -10,12 +13,17 @@ class QuranData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var pointer = Provider.of<SettingsProvider>(context);
     return Row(
       children: [
         Expanded(
             child: Text(
-          suraNumber,
-          style: ThemeDataManager.primaryStyle,
+          suraName,
+          style: pointer.isDark()
+              ? ThemeDataManager.primaryStyle.copyWith(
+                  color: Colors.white,
+                )
+              : ThemeDataManager.primaryStyle,
           textAlign: TextAlign.center,
         )),
         Container(
@@ -25,8 +33,12 @@ class QuranData extends StatelessWidget {
         ),
         Expanded(
             child: Text(
-          suraName,
-          style: ThemeDataManager.primaryStyle,
+          suraNumber,
+          style: pointer.isDark()
+              ? ThemeDataManager.primaryStyle.copyWith(
+                  color: Colors.white,
+                )
+              : ThemeDataManager.primaryStyle,
           textAlign: TextAlign.center,
         ))
       ],

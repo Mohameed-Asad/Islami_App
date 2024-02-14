@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:islamii_app/home_screen.dart';
+import 'package:provider/provider.dart';
+
+import 'app_manager/settings_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = "SplashScreen";
@@ -24,8 +27,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var pointer = Provider.of<SettingsProvider>(context);
     return Scaffold(
-        body: Image.asset("assets/Images/Group_8.png",
+        body: Image.asset(
+            pointer.isDark()
+                ? "assets/Images/splash_dark.png"
+                : "assets/Images/Group_8.png",
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             fit: BoxFit.cover));

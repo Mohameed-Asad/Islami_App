@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islamii_app/Hadeth/hadeth_screen.dart';
+import 'package:islamii_app/app_manager/settings_provider.dart';
+import 'package:islamii_app/bottom_screens/radio_screen.dart';
 import 'package:islamii_app/quran/quran_screen.dart';
-import 'package:islamii_app/radio_screen.dart';
 import 'package:islamii_app/settings_screen.dart';
-import 'package:islamii_app/tasbeh_screen.dart';
+import 'package:provider/provider.dart';
+
+import 'bottom_screens/tasbeh_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
@@ -15,30 +19,33 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 4;
+  int currentIndex = 0;
   List<Widget> screensView = [
-    SettingsScreen(),
-    RadioScreen(),
-    TasbehScreen(),
-    HadethScreen(),
     QuranScreen(),
+    HadethScreen(),
+    TasbehScreen(),
+    RadioScreen(),
+    SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
-
+    var language = AppLocalizations.of(context)!;
+    var pointer = Provider.of<SettingsProvider>(context);
     return Stack(
       children: [
         Image.asset(
-          "assets/Images/default_bg.png",
+          pointer.isDark()
+              ? "assets/Images/dark_bg.png"
+              : "assets/Images/default_bg.png",
           width: mediaQuery.width,
           height: mediaQuery.height,
           fit: BoxFit.cover,
         ),
         Scaffold(
           appBar: AppBar(
-            title: const Text("إسلامي"),
+            title: Text(language.islami),
           ),
           body: screensView[currentIndex],
           bottomNavigationBar: BottomNavigationBar(
@@ -48,22 +55,22 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {});
             },
             items: [
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: "الإعدادات",
-              ),
-              const BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/Images/icon_radio.png")),
-                  label: "راديو"),
-              const BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/Images/icon_sebha.png")),
-                  label: "التسبيح"),
-              const BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/Images/icon_hadeth.png")),
-                  label: "الأحاديث"),
-              const BottomNavigationBarItem(
+              BottomNavigationBarItem(
                   icon: ImageIcon(AssetImage("assets/Images/icon_quran.png")),
-                  label: "القرآن"),
+                  label: language.quran),
+              BottomNavigationBarItem(
+                  icon: ImageIcon(AssetImage("assets/Images/icon_hadeth.png")),
+                  label: language.hadeth),
+              BottomNavigationBarItem(
+                  icon: ImageIcon(AssetImage("assets/Images/icon_sebha.png")),
+                  label: language.sebha),
+              BottomNavigationBarItem(
+                  icon: ImageIcon(AssetImage("assets/Images/icon_radio.png")),
+                  label: language.radio),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: language.settings,
+              ),
             ],
           ),
         )
