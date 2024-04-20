@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:islamii_app/app_manager/theme_manager.dart';
-import 'package:islamii_app/quran/quran_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../app_manager/settings_provider.dart';
+import '../../app_manager/settings_provider.dart';
+import '../../app_manager/theme_manager.dart';
+import '../../models/quran_content_model.dart';
 
 class QuranDetails extends StatefulWidget {
   static const String routeName = "Quran_details";
@@ -23,7 +22,7 @@ class _QuranDetailsState extends State<QuranDetails> {
     var language = AppLocalizations.of(context)!;
     var args = ModalRoute.of(context)?.settings.arguments as QuranContent;
 
-    if (quranList.isEmpty) loadData(args.suraNumber);
+    if (pointer.quranList.isEmpty) pointer.loadQuranData(args.suraNumber);
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -41,7 +40,7 @@ class _QuranDetailsState extends State<QuranDetails> {
         ),
         body: Padding(
           padding:
-          const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 80),
+              const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 80),
           child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -83,14 +82,14 @@ class _QuranDetailsState extends State<QuranDetails> {
                     Expanded(
                       child: ListView.builder(
                         itemBuilder: (context, index) => Text(
-                          quranList[index],
+                          pointer.quranList[index],
                           style: pointer.isDark()
                               ? ThemeDataManager.primaryStyle.copyWith(
                                   color: ThemeDataManager.primaryDarkColor2)
                               : ThemeDataManager.primaryStyle,
                           textAlign: TextAlign.center,
                         ),
-                        itemCount: quranList.length,
+                        itemCount: pointer.quranList.length,
                       ),
                     )
                   ],
@@ -99,14 +98,5 @@ class _QuranDetailsState extends State<QuranDetails> {
         ),
       ),
     );
-  }
-
-  List<String> quranList = [];
-
-  Future loadData(String suraNumber) async {
-    String content =
-        await rootBundle.loadString("assets/Files/$suraNumber.txt");
-    quranList = content.split("\n");
-    setState(() {});
   }
 }

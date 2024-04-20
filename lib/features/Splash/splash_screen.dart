@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:islamii_app/home_screen.dart';
+import 'package:islamii_app/features/home_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'app_manager/settings_provider.dart';
+import '../../app_manager/settings_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = "SplashScreen";

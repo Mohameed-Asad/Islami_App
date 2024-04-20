@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:islamii_app/app_manager/theme_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../app_manager/settings_provider.dart';
+import '../../app_manager/settings_provider.dart';
 
 class RadioScreen extends StatelessWidget {
   const RadioScreen({super.key});
@@ -12,7 +12,7 @@ class RadioScreen extends StatelessWidget {
     var pointer = Provider.of<SettingsProvider>(context);
     return Column(
       children: [
-        Container(
+        SizedBox(
             height: 350,
             child: Image.asset(
               "assets/Images/radio_image.png",
@@ -20,7 +20,7 @@ class RadioScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
             )),
         Padding(
-          padding: const EdgeInsets.only(top: 40, bottom: 20),
+          padding: const EdgeInsets.only(top: 40, bottom: 30),
           child: Text(
             "إذاعة القرآن الكريم",
             style: pointer.isDark()
@@ -35,11 +35,11 @@ class RadioScreen extends StatelessWidget {
             IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.arrow_left,
+                Icons.play_arrow,
                 color: pointer.isDark()
                     ? ThemeDataManager.primaryDarkColor2
                     : ThemeDataManager.primaryColor,
-                size: 80,
+                size: 55,
               ),
             ),
             IconButton(
@@ -49,17 +49,17 @@ class RadioScreen extends StatelessWidget {
                 color: pointer.isDark()
                     ? ThemeDataManager.primaryDarkColor2
                     : ThemeDataManager.primaryColor,
-                size: 70,
+                size: 55,
               ),
             ),
             IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.play_arrow,
+                Icons.stop,
                 color: pointer.isDark()
                     ? ThemeDataManager.primaryDarkColor2
                     : ThemeDataManager.primaryColor,
-                size: 50,
+                size: 55,
               ),
             ),
           ],

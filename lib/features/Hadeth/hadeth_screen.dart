@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:islamii_app/Hadeth/hadeth_content.dart';
 import 'package:islamii_app/app_manager/theme_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../app_manager/settings_provider.dart';
+import '../../app_manager/settings_provider.dart';
+import 'hadeth_content.dart';
 
 class HadethScreen extends StatelessWidget {
   const HadethScreen({super.key});
@@ -11,14 +11,14 @@ class HadethScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var pointer = Provider.of<SettingsProvider>(context);
-    Size mediaquery = MediaQuery.of(context).size;
+    Size mediaQuery = MediaQuery.of(context).size;
     return Column(
       children: [
         Image.asset(
           "assets/Images/hadeth_logo.png",
-          height: mediaquery.height * 0.25,
+          height: mediaQuery.height * 0.25,
         ),
-        Divider(
+        const Divider(
           color: ThemeDataManager.primaryColor,
           thickness: 2,
         ),
@@ -30,7 +30,7 @@ class HadethScreen extends StatelessWidget {
                 )
               : ThemeDataManager.primaryStyle,
         ),
-        Divider(
+        const Divider(
           color: ThemeDataManager.primaryColor,
           thickness: 2,
         ),
@@ -41,7 +41,7 @@ class HadethScreen extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   Hadethcontent.routeName,
-                  arguments: HadethData(index + 1),
+                  arguments: index + 1,
                 );
               },
               child: Text(
@@ -59,10 +59,4 @@ class HadethScreen extends StatelessWidget {
       ],
     );
   }
-}
-
-class HadethData {
-  final int index;
-
-  HadethData(this.index);
 }

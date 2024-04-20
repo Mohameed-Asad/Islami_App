@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islamii_app/app_manager/theme_manager.dart';
 import 'package:provider/provider.dart';
 
-import 'app_manager/settings_provider.dart';
+import '../../app_manager/settings_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

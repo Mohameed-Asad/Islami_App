@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:islamii_app/app_manager/theme_manager.dart';
-import 'package:islamii_app/quran/quran_details.dart';
-import 'package:islamii_app/quran/quran_title.dart';
+import 'package:islamii_app/features/Quran/quran_details.dart';
+import 'package:islamii_app/features/Quran/quran_title.dart';
 import 'package:provider/provider.dart';
 
-import '../app_manager/settings_provider.dart';
+import '../../app_manager/settings_provider.dart';
+import '../../app_manager/theme_manager.dart';
+import '../../models/quran_content_model.dart';
 
-class QuranScreen extends StatelessWidget {
+class QuranScreen extends StatefulWidget {
+  const QuranScreen({super.key});
+
+  @override
+  State<QuranScreen> createState() => _QuranScreenState();
+}
+
+class _QuranScreenState extends State<QuranScreen> {
   List<String> suraName = [
     "الفاتحه",
     "البقرة",
@@ -124,8 +132,6 @@ class QuranScreen extends StatelessWidget {
     "الناس"
   ];
 
-  QuranScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     var pointer = Provider.of<SettingsProvider>(context);
@@ -157,7 +163,7 @@ class QuranScreen extends StatelessWidget {
           ),
           Expanded(
               child: Text(
-            "عدد الآيات",
+            "رقم السورة",
             style: pointer.isDark()
                 ? ThemeDataManager.primaryStyle.copyWith(
                     color: Colors.white,
@@ -188,11 +194,4 @@ class QuranScreen extends StatelessWidget {
       ),
     ]);
   }
-}
-
-class QuranContent {
-  final String suraName;
-  final String suraNumber;
-
-  QuranContent({required this.suraName, required this.suraNumber});
 }

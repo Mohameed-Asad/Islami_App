@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:islamii_app/Hadeth/hadeth_content.dart';
 import 'package:islamii_app/app_manager/settings_provider.dart';
 import 'package:islamii_app/app_manager/theme_manager.dart';
-import 'package:islamii_app/home_screen.dart';
-import 'package:islamii_app/quran/quran_details.dart';
-import 'package:islamii_app/splash_screen.dart';
+import 'package:islamii_app/features/Splash/splash_screen.dart';
+import 'package:islamii_app/features/home_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'features/Hadeth/hadeth_content.dart';
+import 'features/Quran/quran_details.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -29,10 +30,10 @@ class MyApp extends StatelessWidget {
       locale: Locale(pointer.currentLanguage),
       initialRoute: SplashScreen.routeName,
       routes: {
-        SplashScreen.routeName: (context) => SplashScreen(),
-        HomeScreen.routeName: (context) => HomeScreen(),
-        QuranDetails.routeName: (context) => QuranDetails(),
-        Hadethcontent.routeName: (context) => Hadethcontent(),
+        SplashScreen.routeName: (context) => const SplashScreen(),
+        HomeScreen.routeName: (context) => const HomeScreen(),
+        QuranDetails.routeName: (context) => const QuranDetails(),
+        Hadethcontent.routeName: (context) => const Hadethcontent(),
       },
     );
   }
